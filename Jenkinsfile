@@ -44,7 +44,7 @@ pipeline {
             }
             steps {
                 echo "building the application"
-                echo "building version ${NEW_VERSIOM}"
+                echo "building version ${params.Version}"
                 // sh "mvn clean install"
             }
         }
@@ -66,7 +66,7 @@ pipeline {
             }
             steps {
                 echo "deploying the application"
-                echo "deploying version ${params.VERSION}"
+                echo "deploying version ${params.Version}"
             }
         }
         stage("Deploy to QA") {
@@ -75,7 +75,7 @@ pipeline {
             }
             steps {
                 echo "deploying the application"
-                echo "deploying version ${params.VERSION}"
+                echo "deploying version ${params.Version}"
             }
         }
         stage("Approve to Prod?") {
@@ -99,7 +99,7 @@ pipeline {
             }
             steps {
                 echo "deploying the application"
-                echo "deploying version ${params.VERSION}"
+                echo "deploying version ${params.Version}"
             }
         }
     }
@@ -112,7 +112,7 @@ pipeline {
         }
         failure{
             failure {
-                mail to: 'jeff.gu@me.com', subject: 'Pipeline failed', body: "${env.BUILD_URL}"
+                mail to: 'jeff.gu@me.com', subject: 'Pipeline failed', body: "${env.scmUrl}"
             }
         }
     }
