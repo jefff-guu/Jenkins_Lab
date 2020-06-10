@@ -26,11 +26,11 @@ pipeline {
     }
     
     stages {
-        stage("Checkout") {
-            steps {
-                git branch: branch, credentialsId: 'GitCredentials', url: scmUrl
-            }
-        }
+        //stage("Checkout") {
+        //    steps {
+        //        git branch: branch, credentialsId: 'GitCredentials', url: scmUrl
+        //    }
+        //}
         stage("Build") {
             // Groovy expression:
             // when {
