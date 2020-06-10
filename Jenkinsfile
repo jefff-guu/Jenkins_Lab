@@ -79,16 +79,15 @@ pipeline {
             }
         }
         stage("Approve to Prod?") {
-            
-            timeout(20) {
-                input {
-                    message "Will you approve to deploy to Prod?"
-                    ok "Yes, approved"
-                    submitter "alice,bob"
-                    parameters {
-                        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                    }
+            input {
+                message "Will you approve to deploy to Prod?"
+                ok "Yes, approved"
+                submitter "alice,bob"
+                parameters {
+                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
                 }
+            }
+            
             }
             steps {
 
@@ -115,7 +114,7 @@ pipeline {
         }
         failure{
             failure {
-                mail to: 'team@example.com', subject: 'Pipeline failed', body: "${env.BUILD_URL}"
+                mail to: 'jeff.gu@me.com', subject: 'Pipeline failed', body: "${env.BUILD_URL}"
             }
         }
     }
