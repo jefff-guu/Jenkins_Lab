@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    tools {
-        //maven = "maven"
-        //gradle = "gradle"
-        //jdk    = "jdk1.8"
-    }
+    //tools {
+    //    maven = "maven"
+    //    //gradle = "gradle"
+    //    jdk    = "jdk1.8"
+    //}
     parameters {
         choice(name: "Version", choices: ["1.1.0", "1.2.0", "1.3.0"], description: "")
         booleanParam(name: "executeTests", defaultValue: true, description: "")
@@ -79,17 +79,20 @@ pipeline {
             }
         }
         stage("Approve to Prod?") {
-            steps {
-                timeout(20) {
-                    input {
-                        message "Will you approve to deploy to Prod?"
-                        ok "Yes, approved"
-                        submitter "alice,bob"
-                        parameters {
-                            string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                        }
+            
+            timeout(20) {
+                input {
+                    message "Will you approve to deploy to Prod?"
+                    ok "Yes, approved"
+                    submitter "alice,bob"
+                    parameters {
+                        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
                     }
                 }
+            }
+            steps {
+
+                echo "Continue to deploy"
             }
         }
 
