@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    tools {
-        maven = "maven"
-        //gradle = "gradle"
-        jdk    = "jdk1.8"
-    }
+    //tools {
+    //    maven = "maven"
+    //    //gradle = "gradle"
+    //    jdk    = "jdk1.8"
+    //}
     parameters {
         choice(name: "Version", choices: ["1.1.0", "1.2.0", "1.3.0"], description: "")
         booleanParam(name: "executeTests", defaultValue: true, description: "")
@@ -26,11 +26,11 @@ pipeline {
     }
     
     stages {
-        stage("Checkout") {
-            steps {
-                git branch: branch, credentialsId: 'GitCredentials', url: scmUrl
-            }
-        }
+        //stage("Checkout") {
+        //    steps {
+        //        git branch: branch, credentialsId: 'GitCredentials', url: scmUrl
+        //    }
+        //}
         stage("Build") {
             // Groovy expression:
             // when {
@@ -44,7 +44,7 @@ pipeline {
             }
             steps {
                 echo "building the application"
-                echo "building version ${NEW_VERSIOM}"
+                echo "building version ${params.Version}"
                 // sh "mvn clean install"
             }
         }
@@ -66,7 +66,7 @@ pipeline {
             }
             steps {
                 echo "deploying the application"
-                echo "deploying version ${params.VERSION}"
+                echo "deploying version ${params.Version}"
             }
         }
         stage("Deploy to QA") {
@@ -75,21 +75,21 @@ pipeline {
             }
             steps {
                 echo "deploying the application"
-                echo "deploying version ${params.VERSION}"
+                echo "deploying version ${params.Version}"
             }
         }
         stage("Approve to Prod?") {
-            steps {
-                timeout(20) {
-                    input {
-                        message "Will you approve to deploy to Prod?"
-                        ok "Yes, approved"
-                        submitter "alice,bob"
-                        parameters {
-                            string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                        }
-                    }
+            input {
+                message "Will you approve to deploy to Prod?"
+                ok "Yes, approved"
+                submitter "alice,bob"
+                parameters {
+                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
                 }
+            }
+            steps {
+
+                echo "Continue to deploy"
             }
         }
 
@@ -99,7 +99,7 @@ pipeline {
             }
             steps {
                 echo "deploying the application"
-                echo "deploying version ${params.VERSION}"
+                echo "deploying version ${params.Version}"
             }
         }
     }
@@ -112,7 +112,7 @@ pipeline {
         }
         failure{
             failure {
-                mail to: 'team@example.com', subject: 'Pipeline failed', body: "${env.BUILD_URL}"
+                mail to: 'jeff.gu@me.com', subject: 'Pipeline failed', body: "${env.scmUrl}"
             }
         }
     }
