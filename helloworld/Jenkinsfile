@@ -2,7 +2,7 @@ pipeline {
    agent any
    environment {
        // repository name must be lowercase
-       registry = "jettgu/k8s_cicd_goLang_helloworld"
+       registry = "jettgu/k8s_cicd_golang_helloworld"
        GOCACHE = "/tmp"
    }
    stages {
