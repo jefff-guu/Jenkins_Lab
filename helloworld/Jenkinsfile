@@ -1,7 +1,7 @@
 pipeline {
    agent any
    environment {
-       registry = "hub.docker.com/k8scicd"
+       registry = "jettgu/k8scicd"
        GOCACHE = "/tmp"
    }
    stages {
