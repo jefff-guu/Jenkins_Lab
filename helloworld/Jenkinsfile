@@ -49,7 +49,8 @@ pipeline {
                    // def appimage = docker.build (registry + ":$BUILD_NUMBER", "-f ${dockerfile} .")
                    def appimage = ''
                    dir("${WORKSPACE}/helloworld"){
-                       appimage = docker.build(registry + ":$BUILD_NUMBER", "-f ${dockerfile} .")
+                       // appimage = docker.build(registry + ":$BUILD_NUMBER", "-f ${dockerfile} .")
+                       appimage = docker.build(registry + ":$BUILD_NUMBER")
                    }
 
                    docker.withRegistry( '', registryCredential ) {
