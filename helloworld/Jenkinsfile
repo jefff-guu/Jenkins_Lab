@@ -1,7 +1,7 @@
 pipeline {
    agent any
    environment {
-       registry = "jettgu/k8scicd"
+       registry = "jettgu/K8s_CICD_GoLang_Helloworld"
        GOCACHE = "/tmp"
    }
    stages {
@@ -64,7 +64,7 @@ pipeline {
            steps {
                script{
                    def image_id = registry + ":$BUILD_NUMBER"
-                   sh "ansible-playbook  playbook.yml --extra-vars \"image_id=${image_id}\""
+                   sh "ansible-playbook  helloworld/playbook.yml --extra-vars \"image_id=${image_id}\""
                }
            }
        }
