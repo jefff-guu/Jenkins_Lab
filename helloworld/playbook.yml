@@ -3,7 +3,8 @@
   - name: Deploy the service
     k8s:
       state: present
-      definition: ""
+      src: K8s_service.yml
+      #definition: ""
       validate_certs: no
       namespace: default
   - name: Deploy the application
@@ -11,4 +12,7 @@
       state: present
       validate_certs: no
       namespace: default
-      definition: ""
+      #definition: ""
+      #src: K8s_deployment.yml
+      #below variable $image_id is used in K8s_deployment.yml, and second image_id parameter will be passed on command line
+      definition: "{{ lookup('template', 'K8s_deployment.yml') | regex_replace('\\$image_id', image_id) }}"
